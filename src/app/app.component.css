@@ -1,0 +1,10 @@
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-control {
+    display: -webkit-inline-box;
+    width: 200px;
+}

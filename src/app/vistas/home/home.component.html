@@ -1,0 +1,125 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{titulo_modal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeMOdal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    {{bodyModal}} 
+
+  </div>
+
+</ng-template>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Registrar Cliente</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeMOdal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <form [formGroup]="formGroup">
+      <label for="Nombres" class="form-control">Nombres</label>
+      <input name="Nombres"
+            class="form-control"
+            formControlName="Nombres"
+            type="text" />
+      <label for="Apellidos" class="form-control">Apellidos</label>
+      <input name="Apellidos"
+            class="form-control"
+            formControlName="Apellidos"
+            type="text" />
+      <label for="fecha_nacimiento" class="form-control">Fecha de Nacimiento</label>
+      <input name="fecha_nacimiento" (ngModelChange)="changeDate($event)"
+            formControlName="fecha_nacimiento"
+            type="date" />
+      <label for="Edad" class="form-control">Edad</label>
+      <input name="Edad"
+             class="form-control"
+             formControlName="Edad"
+             type="text" disabled/>
+      
+            <button (click)="register()"  class="btn btn-outline-primary" type="button" 
+              [disabled]="formGroup.invalid">Registrar</button>
+            
+    </form> 
+   
+    
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="closeMOdal()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #content3 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Análisis del Cliente</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeMOdal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+
+    <label for="formGroupExampleInput">Nombre y Apellido : {{cliente.nombre.toUpperCase()}}</label><br>
+    <label for="formGroupExampleInput">Edad : {{cliente.edad}} años</label><br>
+    <label for="formGroupExampleInput">Fecha de Nacimiento : {{cliente.fch_nacimiento}} </label><br>
+    <label for="formGroupExampleInput">Probable Muerte : {{cliente.probable_muerte}} </label><br>
+    <div class="progress"> 
+      <div class="progress-bar" role="progressbar" [ngStyle]="setMyStyles()"  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{cliente.edad}}%</div>
+    </div>
+ 
+
+  </div>
+
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+
+<div class="pricing-header px-3 py-3 pt-md-1 pb-md-4 mx-auto text-center">
+  <button class="btn btn-outline-primary"  type="button"  (click)="openModal(content,1)" >Promedio de Edades</button>&nbsp;&nbsp;
+  <button class="btn btn-outline-primary" type="button" (click)="openModal(content,0)">Desviación Estandar</button>&nbsp;&nbsp;
+  <button class="btn btn-outline-primary" type="button" (click)="OpenRister(content2,2)">Nuevo Cliente</button>
+</div>
+
+<div class="container">
+    <table class="table">
+  <caption>Lista de clientes </caption>
+  <thead>
+    <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Nombres</th>
+    <th scope="col">Edad</th>
+    <th scope="col">Fecha Nacimiento</th>
+    <th scope="col">Fecha Probable de Muerte</th>
+    <th scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let dt of persona">
+      <th scope="row"> {{dt.id}} </th>
+      <td>{{dt.nombre}}</td>
+      <td>{{dt.edad}} años</td> 
+      <td>{{dt.fch_nacimiento}}</td>
+      <td>{{dt.probable_muerte}}</td>
+      <td> <button class="btn btn-outline-primary" type="button"  (click)="OpenAnalisis(content3,[(dt)])" >Análisis</button></td>
+    </tr>
+
+ 
+  </tbody>
+</table>
+
+</div>
